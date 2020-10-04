@@ -1,6 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import ViewLoader from "./view/ViewLoader";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -29,6 +30,8 @@ export function activate(context: vscode.ExtensionContext) {
 			.then(async (uri: vscode.Uri[] | undefined) => {
 				if (uri && uri.length > 0) {
 					vscode.window.showInformationMessage(uri[0].fsPath);
+					const view = new ViewLoader(uri[0], context.extensionPath);
+
 				} else {
 					vscode.window.showErrorMessage("No valid file selected!");
 					return;
@@ -36,7 +39,7 @@ export function activate(context: vscode.ExtensionContext) {
 			});
 
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from hello-react!');
+		// vscode.window.showInformationMessage('Hello World from hello-react!');
 	});
 
 	context.subscriptions.push(disposable);
