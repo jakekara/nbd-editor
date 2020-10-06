@@ -16,7 +16,7 @@ export default class ViewLoader {
                 enableScripts: true,
 
                 localResourceRoots: [
-                    vscode.Uri.file(path.join(extensionPath, "configViewer"))
+                    vscode.Uri.file(path.join(extensionPath, "pynotebook"))
                 ]
             }
         );
@@ -36,18 +36,16 @@ export default class ViewLoader {
     private getWebviewContent(filepath: string, content: string): string {
 
         const reactAppPathOnDisk = vscode.Uri.file(
-            path.join(this._extensionPath, "configViewer", "configViewer.js")
+            path.join(this._extensionPath, "pynotebook", "pynotebook.js")
         );
         const reactAppUri = reactAppPathOnDisk.with({ scheme: "vscode-resource" });
-
-        console.log("CONTENT", content);
 
         const pageCode = `<!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>LOLO</title>
+            <title>Viewer</title>
     
             <meta http-equiv="Content-Security-Policy"
                   content="default-src 'none';

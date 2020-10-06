@@ -2,10 +2,10 @@ const path = require("path");
 
 module.exports = {
   entry: {
-    configViewer: "./src/view/app/index.tsx",
+    pynotebook: "./src/view/app/index.tsx",
   },
   output: {
-    path: path.resolve(__dirname, "configViewer"),
+    path: path.resolve(__dirname, "pynotebook"),
     filename: "[name].js",
   },
   devtool: "eval-source-map",
@@ -18,6 +18,10 @@ module.exports = {
         test: /\.(ts|tsx)$/,
         loader: "ts-loader",
         options: {},
+      },
+      {
+        test: /\.ttf$/,
+        use: ["file-loader"],
       },
       {
         test: /\.css$/,
