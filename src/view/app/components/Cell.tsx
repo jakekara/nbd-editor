@@ -15,8 +15,17 @@ export function Cell(props: CellData) {
     });
     editor.getScrollHeight;
     editor.layout({
-      width: ref.current.getBoundingClientRect().width,
-      height: editor.getScrollHeight(),
+      width: ref.current.clientWidth,
+      height: editor.getContentHeight(),
+    });
+
+    window.addEventListener("resize", () => {
+      ref.current.style.height = `${editor.getScrollHeight()}px`;
+
+      editor.layout({
+        width: ref.current.clientWidth,
+        height: editor.getContentHeight(),
+      });
     });
   }, [ref]);
 
