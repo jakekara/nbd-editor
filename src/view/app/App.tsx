@@ -1,5 +1,7 @@
 import * as React from "react";
-import * as monaco from "monaco-editor";
+import { Cell } from "./components/Cell";
+import { CellData } from "./utils/CellData";
+import { getCells } from "./utils/getCells";
 
 interface AppProps {
   initialData?: string;
@@ -8,19 +10,15 @@ interface AppProps {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export default function App(props: AppProps): JSX.Element {
-  const ref = React.useRef(null);
+  const cells = getCells(props.initialData || "");
 
-  React.useEffect(() => {
-    const editor = monaco.editor.create(ref.current, {
-      value: props.initialData,
-      language: "python",
-    });
-    editor.getScrollHeight;
-    editor.layout({
-      width: ref.current.getBoundingClientRect().width,
-      height: editor.getScrollHeight(),
-    });
-  }, [ref]);
-
-  return <div ref={ref}></div>;
+  console.log("Rendering with initialData", props.initialData);
+  console.log("Rendering with cells", cells);
+  return (
+    <div>
+      {cells.map((cell: CellData, i: number) => {
+        return <Cell key={i} {...cell} />;
+      })}
+    </div>
+  );
 }

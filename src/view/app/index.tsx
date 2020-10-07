@@ -12,7 +12,6 @@ declare global {
 }
 
 // const vscode = acquireVsCodeApi();
-console.log(window.initialData);
 
 ReactDOM.render(
   <App initialData={window.initialData}></App>,
