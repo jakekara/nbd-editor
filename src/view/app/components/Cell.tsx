@@ -4,6 +4,7 @@ import * as monaco from "monaco-editor";
 
 import "./Cell.css";
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export function Cell(props: CellData) {
   console.log("Rendering Cell with props", props);
   const ref = React.useRef(null);

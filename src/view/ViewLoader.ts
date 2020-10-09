@@ -3,44 +3,45 @@ import * as fs from "fs";
 import * as path from "path";
 
 export default class ViewLoader {
-    private readonly _panel: vscode.WebviewPanel | undefined;
-    private _extensionPath: string;
+  private readonly _panel: vscode.WebviewPanel | undefined;
+  private _extensionPath: string;
 
-    constructor(fileUri: vscode.Uri, extensionPath: string) {
-        this._extensionPath = extensionPath;
-        this._panel = vscode.window.createWebviewPanel(
-            "configView",
-            "Python Notebook Viewer",
-            vscode.ViewColumn.One,
-            {
-                enableScripts: true,
+  constructor(fileUri: vscode.Uri, extensionPath: string) {
+    this._extensionPath = extensionPath;
+    this._panel = vscode.window.createWebviewPanel(
+      "configView",
+      "Python Notebook Viewer",
+      vscode.ViewColumn.One,
+      {
+        enableScripts: true,
 
-                localResourceRoots: [
-                    vscode.Uri.file(path.join(extensionPath, "pynotebook"))
-                ]
-            }
-        );
+        localResourceRoots: [
+          vscode.Uri.file(path.join(extensionPath, "pynotebook")),
+        ],
+      }
+    );
 
-        this._panel.webview.html = this.getWebviewContent(fileUri.fsPath, this.getFileContent(fileUri) || "");
+    this._panel.webview.html = this.getWebviewContent(
+      fileUri.fsPath,
+      this.getFileContent(fileUri) || ""
+    );
+  }
+
+  private getFileContent(fileUri: vscode.Uri): string | undefined {
+    if (fs.existsSync(fileUri.fsPath)) {
+      let content = fs.readFileSync(fileUri.fsPath, "utf8");
+      return content;
     }
+    return undefined;
+  }
 
-    private getFileContent(fileUri: vscode.Uri): string | undefined {
-        if (fs.existsSync(fileUri.fsPath)) {
-            let content = fs.readFileSync(fileUri.fsPath, "utf8");
-            return content;
+  private getWebviewContent(filepath: string, content: string): string {
+    const reactAppPathOnDisk = vscode.Uri.file(
+      path.join(this._extensionPath, "pynotebook", "pynotebook.js")
+    );
+    const reactAppUri = reactAppPathOnDisk.with({ scheme: "vscode-resource" });
 
-        }
-        return undefined;
-    }
-
-    private getWebviewContent(filepath: string, content: string): string {
-
-        const reactAppPathOnDisk = vscode.Uri.file(
-            path.join(this._extensionPath, "pynotebook", "pynotebook.js")
-        );
-        const reactAppUri = reactAppPathOnDisk.with({ scheme: "vscode-resource" });
-
-        const pageCode = `<!DOCTYPE html>
+    const pageCode = `<!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
@@ -64,7 +65,6 @@ export default class ViewLoader {
         </body>
         </html>`;
 
-
-        return pageCode;
-    }
+    return pageCode;
+  }
 }

@@ -12,8 +12,6 @@ interface AppProps {
 export default function App(props: AppProps): JSX.Element {
   const cells = getCells(props.initialData || "");
 
-  console.log("Rendering with initialData", props.initialData);
-  console.log("Rendering with cells", cells);
   return (
     <div>
       {cells.map((cell: CellData, i: number) => {
