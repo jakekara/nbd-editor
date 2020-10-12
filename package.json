@@ -6,14 +6,36 @@
   "engines": {
     "vscode": "^1.49.0"
   },
+  "enableProposedApi": true,
   "categories": [
     "Other"
   ],
   "activationEvents": [
+    "*",
     "onCommand:hello-react.open"
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "notebookProvider": [
+      {
+        "viewType": "notebook-provider",
+        "displayName": "my notebook provider",
+        "selector": [
+          {
+            "filenamePattern": "*.notebook"
+          }
+        ]
+      },
+      {
+        "viewType": "nbpy-provider",
+        "displayName": "notebook python provider",
+        "selector": [
+          {
+            "filenamePattern": "*.nbpy"
+          }
+        ]
+      }
+    ],
     "commands": [
       {
         "command": "hello-react.open",
@@ -44,14 +66,16 @@
     "watch:views": "webpack --watch --mode development",
     "pretest": "npm run compile && npm run lint",
     "test": "node ./out/test/runTest.js",
-    "prettify":"prettier src --write"
+    "prettify": "prettier src --write"
   },
   "devDependencies": {
+    "@jupyterlab/services": "^5.2.4",
     "@types/glob": "^7.1.3",
     "@types/mocha": "^8.0.0",
     "@types/node": "^14.0.27",
     "@types/react": "^16.9.50",
     "@types/react-dom": "^16.9.8",
+    "@types/split2": "^2.1.6",
     "@types/vscode": "^1.49.0",
     "@typescript-eslint/eslint-plugin": "^3.8.0",
     "@typescript-eslint/parser": "^3.8.0",
@@ -68,8 +92,10 @@
     "style-loader": "^1.3.0",
     "ts-loader": "^8.0.4",
     "typescript": "^3.8.3",
+    "vscode-debugprotocol": "^1.42.0",
     "vscode-test": "^1.4.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
-  }
+  },
+  "dependencies": {}
 }
