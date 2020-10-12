@@ -12,6 +12,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "experimentalDecorators": true
+    // "typeRoots": ["./src/view/app/declarations", "./node_modules/types"]
   },
   "exclude": ["node_modules"]
 }

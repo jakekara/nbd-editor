@@ -1,11 +1,8 @@
 const path = require("path");
 
 module.exports = {
-  // externals:{
-  //   vscode: "vscode"
-  // },
   entry: {
-    pynotebook: "./src/view/app/index.tsx",
+    pynotebook: "./index.tsx",
   },
   output: {
     path: path.resolve(__dirname, "pynotebook"),

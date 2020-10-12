@@ -1,10 +1,17 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
+import * as fs from "fs";
+
 import NBPYProvider from "./NBPYProvider/notebookProvider";
 import { NBPYKernel, NBPYKernelProvider } from "./NBPYProvider/kernelProvider";
 import SampleProvider from "./SampleProvider";
 import ViewLoader from "./view/ViewLoader";
+import {
+  getNotebookCell,
+  getNotebookDocument,
+  UniversalCell,
+} from "./NBPYProvider/getCells";
 
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "hello-react" is now active!');
@@ -29,8 +36,11 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(
-    vscode.notebook.registerNotebookKernelProvider({viewType:"nbpy-provider"},new NBPYKernelProvider())
-  )
+    vscode.notebook.registerNotebookKernelProvider(
+      { viewType: "nbpy-provider" },
+      new NBPYKernelProvider()
+    )
+  );
 
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
@@ -46,12 +56,32 @@ export function activate(context: vscode.ExtensionContext) {
       },
     };
 
+    const vscopy = vscode;
     vscode.window
       .showOpenDialog(openDialogOptions)
       .then(async (uri: vscode.Uri[] | undefined) => {
+
+        const filePath = uri![0].fsPath;
+        const source = fs.readFileSync(filePath, "utf-8") || "";
+
+        const kernel = new NBPYKernel()
+        const contentProvider = new NBPYProvider()
+
+        const runCell = (cell: UniversalCell) => {
+          kernel.terminal?.sendText(cell.source)
+          // const notebookDocument = getNotebookDocument(source, filePath)
+          // setTimeout(()=>{
+          // console.log("RUNNING A CELL WITH CODE", cell.source);
+          // const notebookCell = getNotebookCell(0, notebookDocument, cell);
+          // kernel.executeCell(notebookDocument, notebookCell)
+          // }, 3000);
+        };
+
         if (uri && uri.length > 0) {
           vscode.window.showInformationMessage(uri[0].fsPath);
-          const view = new ViewLoader(uri[0], context.extensionPath);
+          const view = new ViewLoader(uri[0], context.extensionPath, (cell) =>
+            runCell(cell)
+          );
         } else {
           vscode.window.showErrorMessage("No valid file selected!");
           return;

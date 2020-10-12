@@ -1,9 +1,12 @@
-import { CellData } from "./CellData";
+export interface UniversalCell {
+  cellType: "code" | "markdown";
+  source: string;
+}
 
 export function getCells(
   source: string,
-  cells?: Array<CellData>
-): Array<CellData> {
+  cells?: Array<UniversalCell>
+): Array<UniversalCell> {
   if (!cells) {
     cells = [];
   }
@@ -29,8 +32,8 @@ export function getCells(
   }
 
   cells.push({
+    cellType: "code",
     source: cellSource,
-    type: "code",
   });
 
   return getCells(sourceLines.slice(index).join("\n"), cells);

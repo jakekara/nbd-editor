@@ -1,7 +1,9 @@
 import * as vscode from "vscode";
 import { getCells, UniversalCell } from "./getCells";
 
-export function getNotebookCellData(cell: UniversalCell): vscode.NotebookCellData {
+export function getNotebookCellData(
+  cell: UniversalCell
+): vscode.NotebookCellData {
   return {
     cellKind:
       cell.cellType === "markdown"
@@ -15,8 +17,9 @@ export function getNotebookCellData(cell: UniversalCell): vscode.NotebookCellDat
 }
 
 export function getNotebookData(source: string): vscode.NotebookData {
-
-    const cells = getCells(source).map((cell: UniversalCell) => getNotebookCellData(cell));
+  const cells = getCells(source).map((cell: UniversalCell) =>
+    getNotebookCellData(cell)
+  );
 
   return {
     languages: [],

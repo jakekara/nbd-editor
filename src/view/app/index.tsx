@@ -8,10 +8,17 @@ declare global {
   interface Window {
     acquireVsCodeApi(): any;
     initialData: string;
+    filePath: string;
   }
 }
 
+const vscode: any = acquireVsCodeApi();
+
 ReactDOM.render(
-  <App initialData={window.initialData}></App>,
+  <App
+    vscode={vscode}
+    filePath={window.filePath}
+    initialData={window.initialData}
+  ></App>,
   document.getElementById("root")
 );
