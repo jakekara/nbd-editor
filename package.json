@@ -66,7 +66,7 @@
     "watch:views": "webpack --watch --mode development",
     "pretest": "npm run compile && npm run lint",
     "test": "node ./out/test/runTest.js",
-    "prettify": "prettier src --write"
+    "prettify": "prettier --config .prettierrc.json src --write"
   },
   "devDependencies": {
     "@jupyterlab/services": "^5.2.4",

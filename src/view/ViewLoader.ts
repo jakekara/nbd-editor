@@ -1,7 +1,7 @@
-import * as vscode from "vscode";
-import * as fs from "fs";
-import * as path from "path";
-import { RunCellFunction } from "./app/utils/types";
+import * as vscode from 'vscode';
+import * as fs from 'fs';
+import * as path from 'path';
+import { RunCellFunction } from './app/utils/types';
 
 export default class ViewLoader {
   private readonly _panel: vscode.WebviewPanel | undefined;
@@ -14,27 +14,27 @@ export default class ViewLoader {
   ) {
     this._extensionPath = extensionPath;
     this._panel = vscode.window.createWebviewPanel(
-      "configView",
-      "Python Notebook Viewer",
+      'configView',
+      'Python Notebook Viewer',
       vscode.ViewColumn.One,
       {
         enableScripts: true,
 
         localResourceRoots: [
-          vscode.Uri.file(path.join(extensionPath, "pynotebook")),
+          vscode.Uri.file(path.join(extensionPath, 'pynotebook')),
         ],
       }
     );
 
     this._panel.webview.html = this.getWebviewContent(
       fileUri.fsPath,
-      this.getFileContent(fileUri) || ""
+      this.getFileContent(fileUri) || ''
     );
 
     this._panel.webview.onDidReceiveMessage((message) => {
-      console.log("Received message", message);
+      console.log('Received message', message);
       switch (message.command) {
-        case "runCell":
+        case 'runCell':
           runCell(message.cell);
           return;
       }
@@ -43,7 +43,7 @@ export default class ViewLoader {
 
   private getFileContent(fileUri: vscode.Uri): string | undefined {
     if (fs.existsSync(fileUri.fsPath)) {
-      let content = fs.readFileSync(fileUri.fsPath, "utf8");
+      let content = fs.readFileSync(fileUri.fsPath, 'utf8');
       return content;
     }
     return undefined;
@@ -51,9 +51,11 @@ export default class ViewLoader {
 
   private getWebviewContent(filepath: string, content: string): string {
     const reactAppPathOnDisk = vscode.Uri.file(
-      path.join(this._extensionPath, "pynotebook", "pynotebook.js")
+      path.join(this._extensionPath, 'pynotebook', 'pynotebook.js')
     );
-    const reactAppUri = reactAppPathOnDisk.with({ scheme: "vscode-resource" });
+    const reactAppUri = reactAppPathOnDisk.with({
+      scheme: 'vscode-resource',
+    });
     console.log(filepath);
 
     const pageCode = `<!DOCTYPE html>

@@ -1,9 +1,10 @@
-import * as vscode from "vscode";
-import { getNotebookData } from "./getNotebookData";
+import * as vscode from 'vscode';
+import { getNotebookData } from './getNotebookData';
 
-console.log("NBPYProvider/index.ts");
+console.log('NBPYProvider/index.ts');
 
-export default class NBPYProvider implements vscode.NotebookContentProvider {
+export default class NBPYContentProvider
+  implements vscode.NotebookContentProvider {
   async openNotebook(uri: vscode.Uri): Promise<vscode.NotebookData> {
     // vscode.commands.getCommands()
     // .then(commandString => {
@@ -22,6 +23,6 @@ export default class NBPYProvider implements vscode.NotebookContentProvider {
   async saveNotebook(): Promise<void> {}
   async saveNotebookAs(): Promise<void> {}
   async backupNotebook(): Promise<vscode.NotebookDocumentBackup> {
-    return { id: "", delete: () => {} };
+    return { id: '', delete: () => {} };
   }
 }

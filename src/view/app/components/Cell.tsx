@@ -1,10 +1,10 @@
-import * as React from "react";
-import * as monaco from "monaco-editor";
+import * as React from 'react';
+import * as monaco from 'monaco-editor';
 
-import "./Cell.css";
-import CellControls from "./CellControls";
-import { UniversalCell } from "../utils/getCells";
-import { RunCellFunction } from "../utils/types";
+import './Cell.css';
+import CellControls from './CellControls';
+import { UniversalCell } from '../utils/getCells';
+import { RunCellFunction } from '../utils/types';
 
 interface CellProps {
   runCell: RunCellFunction;
@@ -12,18 +12,18 @@ interface CellProps {
 }
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function Cell(props: CellProps) {
-  console.log("Rendering Cell with props", props);
+  console.log('Rendering Cell with props', props);
   const ref = React.useRef(null);
   let editor: monaco.editor.IStandaloneCodeEditor;
 
   React.useEffect(() => {
     editor = monaco.editor.create(ref.current, {
       value: props.cell.source,
-      language: "python",
+      language: 'python',
       glyphMargin: false,
       lineHeight: 17,
       scrollbar: {
-        vertical: "hidden",
+        vertical: 'hidden',
         handleMouseWheel: false,
       },
       scrollBeyondLastLine: false,
@@ -50,14 +50,16 @@ export function Cell(props: CellProps) {
 
     editor.onDidChangeModelContent(updateSize);
 
-    window.addEventListener("resize", updateSize);
+    window.addEventListener('resize', updateSize);
   }, [ref]);
 
   return (
     <div className="Cell">
       <CellControls cell={props.cell} runCell={props.runCell} editor={editor} />
       <div
-        style={{ overflow: "hidden" }}
+        style={{
+          overflow: 'hidden',
+        }}
         className="CellCodeEditor"
         ref={ref}
       ></div>

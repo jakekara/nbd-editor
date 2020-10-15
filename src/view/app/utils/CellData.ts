@@ -1,4 +1,4 @@
 export interface CellData {
-  type: "code" | "markdown";
+  type: 'code' | 'markdown';
   source: string;
 }

@@ -1,36 +1,36 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
   entry: {
-    pynotebook: "./index.tsx",
+    pynotebook: './index.tsx',
   },
   output: {
-    path: path.resolve(__dirname, "pynotebook"),
-    filename: "[name].js",
+    path: path.resolve(__dirname, 'pynotebook'),
+    filename: '[name].js',
   },
-  devtool: "eval-source-map",
+  devtool: 'eval-source-map',
   resolve: {
-    extensions: [".js", ".ts", ".tsx", ".json"],
+    extensions: ['.js', '.ts', '.tsx', '.json'],
   },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        loader: "ts-loader",
+        loader: 'ts-loader',
         options: {},
       },
       {
         test: /\.ttf$/,
-        use: ["file-loader"],
+        use: ['file-loader'],
       },
       {
         test: /\.css$/,
         use: [
           {
-            loader: "style-loader",
+            loader: 'style-loader',
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
           },
         ],
       },

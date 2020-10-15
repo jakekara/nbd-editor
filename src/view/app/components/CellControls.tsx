@@ -1,7 +1,7 @@
-import * as React from "react";
-import * as monaco from "monaco-editor";
-import { RunCellFunction } from "../utils/types";
-import { UniversalCell } from "../utils/getCells";
+import * as React from 'react';
+import * as monaco from 'monaco-editor';
+import { RunCellFunction } from '../utils/types';
+import { UniversalCell } from '../utils/getCells';
 
 interface CellControlsProps {
   editor?: monaco.editor.IStandaloneCodeEditor;

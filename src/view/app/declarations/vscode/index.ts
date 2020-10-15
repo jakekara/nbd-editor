@@ -14,7 +14,7 @@
  * - Copy this file to your project.
  */
 
-declare module "vscode" {
+declare module 'vscode' {
   // #region auth provider: https://github.com/microsoft/vscode/issues/88309
 
   /**
@@ -192,20 +192,33 @@ declare module "vscode" {
   }
 
   export interface ResolvedOptions {
-    extensionHostEnv?: { [key: string]: string | null };
+    extensionHostEnv?: {
+      [key: string]: string | null;
+    };
   }
 
   export interface TunnelOptions {
-    remoteAddress: { port: number; host: string };
+    remoteAddress: {
+      port: number;
+      host: string;
+    };
     // The desired local port. If this port can't be used, then another will be chosen.
     localAddressPort?: number;
     label?: string;
   }
 
   export interface TunnelDescription {
-    remoteAddress: { port: number; host: string };
+    remoteAddress: {
+      port: number;
+      host: string;
+    };
     //The complete local address(ex. localhost:1234)
-    localAddress: { port: number; host: string } | string;
+    localAddress:
+      | {
+          port: number;
+          host: string;
+        }
+      | string;
   }
 
   export interface Tunnel extends TunnelDescription {
@@ -300,7 +313,7 @@ declare module "vscode" {
     label: string; // myLabel:/${path}
     // For historic reasons we use an or string here. Once we finalize this API we should start using enums instead and adopt it in extensions.
     // eslint-disable-next-line vscode-dts-literal-or-types
-    separator: "/" | "\\" | "";
+    separator: '/' | '\\' | '';
     tildify?: boolean;
     normalizeDriveLetter?: boolean;
     workspaceSuffix?: string;
@@ -347,7 +360,9 @@ declare module "vscode" {
   export interface FileSystemProvider {
     open?(
       resource: Uri,
-      options: { create: boolean }
+      options: {
+        create: boolean;
+      }
     ): number | Thenable<number>;
     close?(fd: number): void | Thenable<void>;
     read?(
@@ -1214,7 +1229,10 @@ declare module "vscode" {
       document: TextDocument,
       position: Position,
       token: CancellationToken
-    ): ProviderResult<{ ranges: Range[]; wordPattern?: RegExp }>;
+    ): ProviderResult<{
+      ranges: Range[];
+      wordPattern?: RegExp;
+    }>;
   }
 
   namespace languages {
@@ -1515,7 +1533,9 @@ declare module "vscode" {
      * Controls if a meetadata property change will trigger notebook document content change and if it will be used in the diff editor
      * Default to false. If the content provider doesn't persisit a metadata property in the file document, it should be set to true.
      */
-    transientMetadata: { [K in keyof NotebookCellMetadata]?: boolean };
+    transientMetadata: {
+      [K in keyof NotebookCellMetadata]?: boolean;
+    };
   }
 
   export interface NotebookDocument {
@@ -1913,7 +1933,10 @@ declare module "vscode" {
 
   export type NotebookFilenamePattern =
     | GlobPattern
-    | { include: GlobPattern; exclude: GlobPattern };
+    | {
+        include: GlobPattern;
+        exclude: GlobPattern;
+      };
 
   export interface NotebookDocumentFilter {
     viewType?: string | string[];
@@ -2118,7 +2141,13 @@ declare module "vscode" {
     /**
      * The icon path or [ThemeIcon](#ThemeIcon) for the timeline item.
      */
-    iconPath?: Uri | { light: Uri; dark: Uri } | ThemeIcon;
+    iconPath?:
+      | Uri
+      | {
+          light: Uri;
+          dark: Uri;
+        }
+      | ThemeIcon;
 
     /**
      * A human readable string describing less prominent details of the timeline item.
@@ -2204,7 +2233,12 @@ declare module "vscode" {
      * An optional maximum number timeline items or the all timeline items newer (inclusive) than the timestamp or id that should be returned.
      * If `undefined` all timeline items should be returned.
      */
-    limit?: number | { timestamp: number; id?: string };
+    limit?:
+      | number
+      | {
+          timestamp: number;
+          id?: string;
+        };
   }
 
   export interface TimelineProvider {

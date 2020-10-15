@@ -1,8 +1,8 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-import App from "./App";
-import "./index.css";
+import App from './App';
+import './index.css';
 
 declare global {
   interface Window {
@@ -20,5 +20,5 @@ ReactDOM.render(
     filePath={window.filePath}
     initialData={window.initialData}
   ></App>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

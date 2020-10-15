@@ -6,10 +6,10 @@ import {
   NotebookCellData,
   NotebookDocument,
   NotebookDocumentContentOptions,
-} from "vscode";
+} from 'vscode';
 
 export interface UniversalCell {
-  cellType: "code" | "markdown";
+  cellType: 'code' | 'markdown';
   source: string;
 }
 
@@ -37,7 +37,7 @@ export function getNotebookDocument(
     uri: Uri.file(filePath),
     fileName: filePath,
     version: -1,
-    viewType: "nbpy-notebook",
+    viewType: 'nbpy-notebook',
     isDirty: false,
     isUntitled: false,
     cells: universalCells.map((c: UniversalCell, i: number) =>
@@ -62,8 +62,8 @@ export function getNotebookCell(
     index,
     notebook: document,
     uri: document.uri,
-    cellKind: cell.cellType === "markdown" ? CellKind.Markdown : CellKind.Code,
-    language: cell.cellType === "markdown" ? "markdown" : "python",
+    cellKind: cell.cellType === 'markdown' ? CellKind.Markdown : CellKind.Code,
+    language: cell.cellType === 'markdown' ? 'markdown' : 'python',
     outputs: [],
     metadata: {},
     document: textDocument,
@@ -82,26 +82,26 @@ export function getCells(
     return cells;
   }
 
-  const sourceLines = source.split("\n");
+  const sourceLines = source.split('\n');
 
-  let cellSource = "";
+  let cellSource = '';
   let index = 0;
 
   while (index < sourceLines.length) {
     const line = sourceLines[index];
     index++;
 
-    if (line.trim().startsWith("# %%")) {
+    if (line.trim().startsWith('# %%')) {
       break;
     }
 
-    cellSource += line + "\n";
+    cellSource += line + '\n';
   }
 
   cells.push({
-    cellType: "code",
+    cellType: 'code',
     source: cellSource,
   });
 
-  return getCells(sourceLines.slice(index).join("\n"), cells);
+  return getCells(sourceLines.slice(index).join('\n'), cells);
 }
